@@ -2,21 +2,24 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import Body from "../Body";
 import Select from "../Select";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Controls } from "./style";
 import { getCategory } from "../../Redux/Category";
+import { getProducts } from "../../Redux/Products";
 
 export const Home = () => {
-  const [data, setData] = useState([]);
+  const products = useSelector((store) => store.products.products);
+  const [data, setData] = useState(products);
   const [name, setName] = useState("");
   const [select, setSelect] = useState("");
 
   const dispatch = useDispatch();
+
+  //get dates
+
   useEffect(() => {
     dispatch(getCategory());
-    axios.get("http://localhost:3001/api/product").then((res) => {
-      setData(res.data.products);
-    });
+    dispatch(getProducts());
   }, [dispatch]);
 
   const filter = useCallback((category) => {
