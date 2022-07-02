@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = [];
-export const getCategory = createAsyncThunk("getCategory", () => {
-  return fetch("http://localhost:3001/api/category").then((res) => res.json());
+const initialState = {
+  category: [],
+};
+export const getCategory = createAsyncThunk("getCategory", async () => {
+  return await fetch("http://localhost:3001/api/category").then((res) =>
+    res.json()
+  );
 });
 
 export const categorySlice = createSlice({
@@ -11,7 +15,7 @@ export const categorySlice = createSlice({
   extraReducers: {
     [getCategory.pending]: (state, action) => {},
     [getCategory.fulfilled]: (state, { payload }) => {
-      state = payload;
+      state.category = payload;
     },
     [getCategory.rejected]: (state, action) => {},
   },

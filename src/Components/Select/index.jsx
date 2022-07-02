@@ -1,16 +1,10 @@
-import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import { Container } from "./style";
+import { useSelector } from "react-redux";
 
 const Select = ({ data }) => {
-  const [category, setCategory] = useState([]);
   const [filterCategory, setFilterCategory] = useState("");
-
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/category").then((res) => {
-      setCategory(res.data);
-    });
-  }, [data]);
+  const category = useSelector((store) => store.category.category);
 
   const onFilter = ({ target }) => {
     setFilterCategory(target.value);

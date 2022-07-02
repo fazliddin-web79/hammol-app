@@ -5,7 +5,6 @@ import Select from "../Select";
 import { useDispatch } from "react-redux";
 import { Container, Controls } from "./style";
 import { getCategory } from "../../Redux/Category";
-import { useSelector } from "react-redux";
 
 export const Home = () => {
   const [data, setData] = useState([]);
@@ -13,7 +12,6 @@ export const Home = () => {
   const [select, setSelect] = useState("");
 
   const dispatch = useDispatch();
-  const category = useSelector((store) => store.category);
   useEffect(() => {
     dispatch(getCategory());
     axios.get("http://localhost:3001/api/product").then((res) => {
@@ -63,10 +61,6 @@ export const Home = () => {
           <Controls.Btn onClick={onFilter}>Search</Controls.Btn>
         </Controls.InputWrap>
         <Select data={filter} />
-        {category?.map((item) => {
-          console.log(item, "item");
-          return <p>{item}</p>;
-        })}
       </Controls>
       <Body value={data} />
     </Container>

@@ -13,7 +13,6 @@ export const Product = () => {
       setTitleImg(res.data.thumbnail);
     });
   }, [params.id]);
-  console.log(data, "data");
   return (
     <Container>
       <Container.Left>
